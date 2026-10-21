@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Monthsary</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff1f3;--ink:#4a1f2e;--soft:#8a4b5e;--rose:#e4577a;--card:#ffffff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a1219;--ink:#ffe3ea;--soft:#e7a3b6;--rose:#ff7a9c;--card:#3a1a24}}
+:root[data-theme="dark"]{--bg:#2a1219;--ink:#ffe3ea;--soft:#e7a3b6;--rose:#ff7a9c;--card:#3a1a24}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.7 Nunito,system-ui,sans-serif;text-align:center;overflow-x:hidden}
+section{max-width:620px;margin:0 auto;padding:64px 24px}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.15;margin:0 0 16px}
+h1{font-size:clamp(2.6rem,10vw,4.5rem)}
+h2{font-size:1.8rem}
+.count{font-family:Fraunces,Georgia,serif;font-size:clamp(6rem,30vw,11rem);line-height:1;color:var(--rose);margin:8px 0;animation:beat 1.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.sub{color:var(--soft);font-style:italic;font-family:Fraunces,Georgia,serif}
+button{font:600 1rem Nunito,sans-serif;background:var(--rose);color:#fff;border:0;border-radius:999px;padding:14px 28px;cursor:pointer}
+button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.reasons{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.reasons li{background:var(--card);border-radius:16px;padding:16px 20px;text-align:left;border-left:5px solid var(--rose)}
+#letter{display:none;background:var(--card);border-radius:20px;padding:28px;margin-top:24px;text-align:left;white-space:pre-line;font-family:Fraunces,Georgia,serif}
+#letter.open{display:block}
+.heart{position:fixed;bottom:-30px;pointer-events:none;color:var(--rose);animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-110vh);opacity:0}}
+@media (prefers-reduced-motion:reduce){.count{animation:none}}
+footer{padding:32px 24px 56px;color:var(--soft)}
+</style>
+</head>
+<body>
+<section>
+  <p class="sub" id="date"></p>
+  <h1>Happy Monthsary, <span id="name"></span></h1>
+  <div class="count" id="months"></div>
+  <p class="sub" id="tag"></p>
+  <button id="burst">Tap for some love</button>
+</section>
+
+<section>
+  <h2>Things I love about you</h2>
+  <ul class="reasons" id="reasons"></ul>
+</section>
+
+<section>
+  <h2>A little note for you</h2>
+  <button id="open">Open my letter</button>
+  <div id="letter"></div>
+</section>
+
+<footer id="from"></footer>
+
+<script>
+var CONFIG = {
+  name: " Luchie Ann Sarmiento, My Queen ",
+  from: " Jaymark Loreto, Your Lover ",
+  months: 5,
+  date: "October 22, 2026",
+  tagline: "months with you, and I'd choose it over and over again.",
+  reasons: [
+    "How you make ordinary days feel special",
+    "The way you always listen",
+    "The way you communicate despite being in a bad mood",
+    "The way you laugh at my jokes",
+    "Your smile and your eyes. Obviously."
+  ],
+  letter: "Hi love,\n\nThank you for every message, every laugh, every time, and every little moment from the beginning until this month. You make everything feel lighter.\n\nI can't wait for all the months still to come with both of us together.\n\nI love you always and forever."
+};
+
+document.getElementById('name').textContent = CONFIG.name;
+document.getElementById('months').textContent = CONFIG.months;
+document.getElementById('date').textContent = CONFIG.date;
+document.getElementById('tag').textContent = CONFIG.tagline;
+document.getElementById('from').textContent = "Always yours, " + CONFIG.from + " ♥";
+document.getElementById('letter').textContent = CONFIG.letter;
+var ul = document.getElementById('reasons');
+CONFIG.reasons.forEach(function(r){var li=document.createElement('li');li.textContent=r;ul.appendChild(li)});
+
+function hearts(n){
+  for(var i=0;i<n;i++){
+    var h=document.createElement('span');
+    h.className='heart';h.textContent='♥';
+    h.style.left=Math.random()*100+'vw';
+    h.style.fontSize=(16+Math.random()*28)+'px';
+    h.style.animationDuration=(3+Math.random()*3)+'s';
+    h.style.animationDelay=(Math.random()*1.2)+'s';
+    document.body.appendChild(h);
+    setTimeout(function(el){el.remove()},8000,h);
+  }
+}
+document.getElementById('burst').onclick=function(){hearts(30)};
+document.getElementById('open').onclick=function(){
+  document.getElementById('letter').classList.add('open');
+  this.style.display='none';hearts(20);
+};
+</script>
+</body>
+</html>
